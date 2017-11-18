@@ -2,27 +2,66 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  background-color: rgb(16, 76, 151);
+  height: 50px;
+  padding: 0px;
   color: white;
+  margin-top: 2%;
 }
 
 .App-title {
   font-size: 1.5em;
+  padding: 1%;
+  height: 100%;
 }
 
 .App-intro {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.room {
+  padding:0 0 10px 0;
+  position:absolute;
+  right:3.25em;
+  top:-0.25em;
+  width:70px;
+  height: 80px;
+  /*background:#bb3a34;*/
+}
+
+.roomText {
+  background:#bb3a34;
+  background: linear-gradient(#e74841 0%, #bb3a34 100%);
+  color:#fff;
+  padding:1.9em 0;
+  text-align:center;
+  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+.roomText:after {
+  border-left: 35px solid #bb3a34;
+  border-right: 35px solid #bb3a34;
+  border-bottom: 10px solid transparent;
+  bottom:0;
+  content:'';
+  height: 0px;
+  left:0;
+  position:absolute;
+  width: 0;
+}
+.roomStats {
+  font-size: 18px;
+  font-family: monaco;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+.scoreboard {
+  margin: 30px;
+  padding: 20px;
+  background-color: #54fdbd;
+}
+
+.graph {
+
 }

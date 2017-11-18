@@ -7,46 +7,72 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      entry: [{Room: 7, Water: 10, 'Trash/Recycling':15 ,'Laundry': 300, 'Lighting': 130,'Thermostat': 10, date: '2017-11-10'},
-        {Room: 7, Water: 30, 'Trash/Recycling':0, 'Laundry': 350,'Lighting': 130,'Thermostat': 100,  date: '2017-11-11'},
-        {Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-12'},
+      entry: [{id: 1, Room: 7, Water: 10, 'Trash/Recycling':15 ,'Laundry': 300, 'Lighting': 130,'Thermostat': 10, date: '2017-11-10'},
+        {id: 2, Room: 7, Water: 30, 'Trash/Recycling':0, 'Laundry': 350,'Lighting': 130,'Thermostat': 100,  date: '2017-11-11'},
+        {id: 3, Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-12'},
       ],
-      room: 7
+      room: {
+        number: 7,
+        area: 200,
+        guests: 2,
+        stay: 2,
+      }
     }
   }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Hotel Dashboard: Room #{this.state.room}</h1>
+          <div className="room">
+            <div className="roomText">Room #{this.state.room.number}</div>
+          </div>
+          <div className="App-title">Make A Difference, See Your Impact At Hilton!</div>
         </header>
-        <C3Chart
-          data={{
-            json: this.state.entry,
-            keys: {
-                x: 'date', // it's possible to specify 'x' when category axis
-                value: ['Laundry', "Lighting", "Thermostat", "Trash/Recycling", "Water"],
-            },
-            types: {
-                Laundry: 'area',
-                Lighting: 'area',
-                Thermostat: 'area',
-                "Trash/Recycling": 'area',
-                Water: 'area'
-            },
-            groups: [['Laundry', 'Lighting', 'Thermostat', "Trash/Recycling", "Water"]]
-          }}
-          axis={{
-            x: {
-                type: 'timeseries',
-                tick:  {
-                    format: '%m-%d'
-                }
-            }
-          }}
-        />
-        <button onClick={()=>{this.setState({entry: this.state.entry.concat([{Room: 7, Water: 0, 'Trash/Recycling':5, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-13'}])})}}>hi</button>
-        <button onClick={()=>{this.setState({entry: this.state.entry.map()})}}>update</button>
+        <div className="scoreboard">
+          <h2>Room Statistics</h2>
+          <div className="roomStats">
+            <div>
+              <div>Carbon footprint during stay: {1000}</div>
+              <div>Footprint per day: {1000/this.state.room.stay}</div>
+              <div>consumption/m2: {1000/this.state.room.area}</div>
+            </div>
+            <div>
+              <div>guest count: {this.state.room.guests}</div>
+              <div>guest total stay: {this.state.room.stay}</div>
+              <div>Carbon footprint rating: {"****"}</div>
+
+            </div>
+          </div>
+        </div>
+        <div className="graph">
+          <C3Chart
+            data={{
+              json: this.state.entry.filter(entry=>entry.Room===this.state.room.number),
+              keys: {
+                  x: 'date', // it's possible to specify 'x' when category axis
+                  value: ['Laundry', "Lighting", "Thermostat", "Trash/Recycling", "Water"],
+              },
+              types: {
+                  Laundry: 'area',
+                  Lighting: 'area',
+                  Thermostat: 'area',
+                  "Trash/Recycling": 'area',
+                  Water: 'area'
+              },
+              groups: [['Laundry', 'Lighting', 'Thermostat', "Trash/Recycling", "Water"]]
+            }}
+            axis={{
+              x: {
+                  type: 'timeseries',
+                  tick:  {
+                      format: '%m-%d'
+                  }
+              }
+            }}
+          />
+        </div>
+        <button onClick={()=>{this.setState({entry: this.state.entry.concat([{id: 4, Room: 7, Water: 0, 'Trash/Recycling':5, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-13'}])})}}>hi</button>
+        <button onClick={()=>{this.setState({entry: this.state.entry.slice(0,2).concat([{id: 3, Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 250,'Thermostat': 0,  date: '2017-11-12'}])})}}>update</button>
 
       </div>
     );
