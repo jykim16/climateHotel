@@ -20,6 +20,10 @@ class App extends Component {
       }
     }
   }
+  componentDidMount() {
+    setInterval(function(){ console.log("Hello"); }, 1000)
+  }
+  
   render() {
     return (
       <div className="App">
