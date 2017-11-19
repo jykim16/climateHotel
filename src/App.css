@@ -2,7 +2,9 @@
   text-align: center;
   background-color: rgba(252, 255, 242, 0.24);
 }
-
+.c3-tooltip-container {
+  background-color: white;
+}
 .App-header {
   background-color: rgb(16, 76, 151);
   height: 100px;
@@ -41,7 +43,7 @@
   background:#bb3a34;
   background: linear-gradient(#e74841 0%, #bb3a34 100%);
   color:#fff;
-  padding:2em 0;
+  padding:1.85em 0;
   text-align:center;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
 }

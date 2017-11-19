@@ -8,19 +8,36 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      entry: [{id: 1, Room: 7, Water: 10, 'Trash/Recycling':15 ,'Laundry': 300, 'Lighting': 130,'Thermostat': 10, date: '2017-11-10'},
-        {id: 2, Room: 7, Water: 30, 'Trash/Recycling':0, 'Laundry': 350,'Lighting': 130,'Thermostat': 100,  date: '2017-11-11'},
-        {id: 3, Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-12'},
+      entry: [{Room: 7, Water: 10, 'Trash/Recycling':15 ,'Laundry': 300, 'Lighting': 130,'Thermostat': 10, date: '2017-11-10'},
+        {Room: 7, Water: 30, 'Trash/Recycling':0, 'Laundry': 350,'Lighting': 130,'Thermostat': 100,  date: '2017-11-11'},
+        {Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-12'},
       ],
       room: {
         number: 7,
         area: 200,
         guests: 2,
-        stay: 2,
+        stay: 3,
       }
     }
   }
   render() {
+    var calculateRating = (num) => {
+      if(num < 100) {
+        return 5;
+      } else if (num < 120) {
+        return 4;
+      } else if (num < 150) {
+        return 3;
+      } else if (num < 200) {
+        return 2;
+      } else {
+        return 1;
+      }
+    }
+    const totalFootprint = this.state.entry.reduce((accum, entry)=>{return accum+entry.Room+entry.Water+entry["Trash/Recycling"]+entry.Thermostat}, 0);
+    const avgFootprint = (totalFootprint/this.state.room.stay).toFixed(2);
+    const footprintPerArea = (avgFootprint/this.state.room.area).toFixed(2);
+    const footprintRating = "*****".slice(0, calculateRating(footprintPerArea))
     return (
       <div className="App">
         <header className="App-header">
@@ -34,20 +51,23 @@ class App extends Component {
           <h2>Room Statistics</h2>
           <div className="roomStats">
             <div>
-              <div>Carbon footprint during stay: {1000}</div>
-              <div>Footprint per day: {1000/this.state.room.stay}</div>
-              <div>consumption/m2: {1000/this.state.room.area}</div>
+              <div>Carbon footprint during stay: {totalFootprint}</div>
+              <div>Footprint per day: {avgFootprint}</div>
+              <div>consumption/m2: {footprintPerArea}</div>
             </div>
             <div>
               <div>guest count: {this.state.room.guests}</div>
               <div>guest total stay: {this.state.room.stay}</div>
-              <div>Carbon footprint rating: {"****"}</div>
+              <div>Carbon footprint rating: {footprintRating}</div>
 
             </div>
           </div>
         </div>
         <div className="graph">
           <C3Chart
+            padding={{
+              right: 20
+            }}
             data={{
               json: this.state.entry.filter(entry=>entry.Room===this.state.room.number),
               keys: {
@@ -69,12 +89,16 @@ class App extends Component {
                   tick:  {
                       format: '%m-%d'
                   }
+              },
+              y: {
+                label: {
+                  text: 'CO2 Output',
+                  position: 'outer-middle'
+                }
               }
             }}
           />
         </div>
-        <button onClick={()=>{this.setState({entry: this.state.entry.concat([{id: 4, Room: 7, Water: 0, 'Trash/Recycling':5, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-13'}])})}}>hi</button>
-        <button onClick={()=>{this.setState({entry: this.state.entry.slice(0,2).concat([{id: 3, Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 250,'Thermostat': 0,  date: '2017-11-12'}])})}}>update</button>
 
         <div>
         <br/>
