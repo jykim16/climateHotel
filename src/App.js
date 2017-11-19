@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import 'c3';
 import C3Chart from 'react-c3js';
+import { Button, Icon } from 'semantic-ui-react'
 
 class App extends Component {
   constructor() {
@@ -74,6 +75,42 @@ class App extends Component {
         </div>
         <button onClick={()=>{this.setState({entry: this.state.entry.concat([{id: 4, Room: 7, Water: 0, 'Trash/Recycling':5, 'Laundry': 120,'Lighting': 200,'Thermostat': 0,  date: '2017-11-13'}])})}}>hi</button>
         <button onClick={()=>{this.setState({entry: this.state.entry.slice(0,2).concat([{id: 3, Room: 7, Water: 20, 'Trash/Recycling':50, 'Laundry': 120,'Lighting': 250,'Thermostat': 0,  date: '2017-11-12'}])})}}>update</button>
+
+        <div>
+        <br/>
+
+            <Button.Group widths='5'>
+              <Button icon = 'magic' content='Laundry + 1' />
+              <Button icon ='lightbulb' content='Lighting +1' />
+              <Button icon = 'thermometer' content='Thermostat +1' />
+              <Button icon ='trash' content='Trash/Recycling +1'/>
+              <Button icon ='s15' content='Water +1'/>
+            </Button.Group>
+        </div>
+        <div>
+            <Button.Group widths='5'>
+              <Button icon = 'magic' content='Laundry - 1' />
+              <Button icon ='lightbulb' content='Lighting - 1' />
+              <Button icon = 'thermometer' content='Thermostat -1' />
+              <Button icon ='trash' content='Trash/Recycling -1'/>
+              <Button icon ='s15' content='Water -1'/>
+            </Button.Group>
+        </div>
+        <div>
+          <br/>
+          <Button color='facebook'>
+            <Icon name='facebook' /> Facebook
+          </Button>
+          <Button color='twitter'>
+            <Icon name='twitter' /> Twitter
+          </Button>
+          <Button color='google plus'>
+            <Icon name='google plus' /> Google Plus
+          </Button>
+          <Button color='instagram'>
+            <Icon name='instagram' /> Instagram
+          </Button>
+        </div>
 
       </div>
     );
