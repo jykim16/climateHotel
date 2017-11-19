@@ -90,7 +90,12 @@ class App extends Component {
     this.interval = setInterval(
       function(){
         let newDate = newDateArray.shift();
-        that.setState({entry: that.state.entry.concat([newDate])})
+        let room = that.state.room;
+        room['stay'] += 1
+        that.setState({
+          entry: that.state.entry.concat([newDate]),
+          room
+        })
       },
       2000
     )
