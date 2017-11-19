@@ -1,19 +1,26 @@
 .App {
   text-align: center;
+  background-color: rgba(252, 255, 242, 0.24);
 }
 
 .App-header {
   background-color: rgb(16, 76, 151);
-  height: 50px;
+  height: 100px;
   padding: 0px;
   color: white;
-  margin-top: 2%;
 }
 
 .App-title {
-  font-size: 1.5em;
-  padding: 1%;
+  font-size: 2.5em;
+  padding: 3%;
   height: 100%;
+}
+
+.logo {
+  position: absolute;
+  left: 1em;
+  height: 100px;
+  width: 100px;
 }
 
 .App-intro {
@@ -34,7 +41,7 @@
   background:#bb3a34;
   background: linear-gradient(#e74841 0%, #bb3a34 100%);
   color:#fff;
-  padding:1.9em 0;
+  padding:2em 0;
   text-align:center;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
 }
