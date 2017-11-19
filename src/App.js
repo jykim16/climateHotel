@@ -21,7 +21,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    setInterval(function(){ console.log("Hello"); }, 1000)
+    setInterval(function(){ console.log("Hello"); }, 2000)
   }
   
   render() {
