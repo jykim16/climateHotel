@@ -3,7 +3,7 @@ import './App.css';
 import 'c3';
 import C3Chart from 'react-c3js';
 import { Button, Icon } from 'semantic-ui-react'
-
+import Dash from './dash.js'
 class App extends Component {
   constructor() {
     super();
@@ -58,7 +58,7 @@ class App extends Component {
   }
   addToLaundry(num) {
     var last = this.state.entry.slice(this.state.entry.length - 1)[0];
-    last.Laundry += num;
+    last['Laundry'] += num;
     var entry = this.state.entry.slice(0, this.state.entry.length - 1).concat([last])
     console.log(last, entry)
 
@@ -97,23 +97,7 @@ class App extends Component {
   }
 
   render() {
-    var calculateRating = (num) => {
-      if(num < 100) {
-        return 5;
-      } else if (num < 120) {
-        return 4;
-      } else if (num < 150) {
-        return 3;
-      } else if (num < 200) {
-        return 2;
-      } else {
-        return 1;
-      }
-    }
-    const totalFootprint = this.state.entry.reduce((accum, entry)=>{return accum+entry.Room+entry.Water+entry["Trash/Recycling"]+entry.Thermostat}, 0);
-    const avgFootprint = (totalFootprint/this.state.room.stay).toFixed(2);
-    const footprintPerArea = (avgFootprint/this.state.room.area).toFixed(2);
-    const footprintRating = "*****".slice(0, calculateRating(footprintPerArea))
+
     return (
       <div className="App">
         <header className="App-header">
@@ -123,22 +107,10 @@ class App extends Component {
           </div>
           <div className="App-title">Make A Difference, See Your Impact At Hilton!</div>
         </header>
-        <div className="scoreboard">
-          <h2>Room Statistics</h2>
-          <div className="roomStats">
-            <div>
-              <div>Carbon footprint during stay: {totalFootprint}</div>
-              <div>Footprint per day: {avgFootprint}</div>
-              <div>consumption/m2: {footprintPerArea}</div>
-            </div>
-            <div>
-              <div>guest count: {this.state.room.guests}</div>
-              <div>guest total stay: {this.state.room.stay}</div>
-              <div>Carbon footprint rating: {footprintRating}</div>
-
-            </div>
-          </div>
-        </div>
+        <Dash
+          entry={this.state.entry}
+          room={this.state.room}
+        />
         <div className="graph">
           <C3Chart
             padding={{
